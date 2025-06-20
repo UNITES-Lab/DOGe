@@ -1,4 +1,4 @@
-# 🐶DOGe
+# 🐶 DOGe
 
 **_Defensive Output Generation for LLM Protection Against Knowledge Distillation_**
 
