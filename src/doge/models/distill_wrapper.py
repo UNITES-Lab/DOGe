@@ -10,7 +10,7 @@ from transformers.modeling_outputs import ModelOutput
 
 
 @dataclass
-class AntiDistillCausalLMOutputWithPast(ModelOutput):
+class DogeCausalLMOutputWithPast(ModelOutput):
     loss: Optional[torch.FloatTensor] = None
     logits: torch.FloatTensor = None
     kd_loss: Optional[torch.FloatTensor] = None
@@ -20,7 +20,7 @@ class AntiDistillCausalLMOutputWithPast(ModelOutput):
     attentions: Optional[Tuple[torch.FloatTensor, ...]] = None
 
 
-class AntiDistillWrapper(nn.Module):
+class DogeWrapper(nn.Module):
     """Model wrapper to train the TEACHER model for anti distillation. """
 
     def __init__(
@@ -76,8 +76,8 @@ class AntiDistillWrapper(nn.Module):
                     param.requires_grad = True
                 logger.info(f"Setting trainable on {name} (set to trainable? {param.requires_grad})")
 
-    def forward(self, kl_mask: torch.FloatTensor=None, *args, **kwargs) -> AntiDistillCausalLMOutputWithPast:
-        assert self.training, "AntiDistillWrapper should only be used in training mode"
+    def forward(self, kl_mask: torch.FloatTensor=None, *args, **kwargs) -> DogeCausalLMOutputWithPast:
+        assert self.training, "DogeWrapper should only be used in training mode"
 
         teacher_outputs = self.teacher_model(*args, **kwargs)
         with torch.no_grad():
@@ -110,7 +110,7 @@ class AntiDistillWrapper(nn.Module):
 
         loss = lm_loss + anti_kd_loss
 
-        return AntiDistillCausalLMOutputWithPast(
+        return DogeCausalLMOutputWithPast(
             loss=loss, logits=teacher_logits, lm_loss=lm_loss, kd_loss=kd_loss,
             past_key_values=teacher_outputs.past_key_values,
             hidden_states=teacher_outputs.hidden_states,

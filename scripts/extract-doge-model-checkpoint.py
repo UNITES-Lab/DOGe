@@ -3,7 +3,7 @@ import os
 from fire import Fire
 from loguru import logger
 
-def extract_antidistill_model(model_dir: str):
+def extract_doge_model(model_dir: str):
     if not os.path.exists(os.path.join(model_dir, "model.safetensors.index.json")):
         logger.info(f"No model.safetensors.index.json in {model_dir}, skipping")
         return
@@ -34,4 +34,4 @@ def extract_antidistill_model(model_dir: str):
 
     
 if __name__ == "__main__":
-    Fire(extract_antidistill_model)
+    Fire(extract_doge_model)

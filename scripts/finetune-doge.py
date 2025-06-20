@@ -17,7 +17,7 @@ from tqdm.auto import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer, get_scheduler, PreTrainedTokenizerBase
 
 from doge.data import CustomDataCollatorWithPadding
-from doge.models.distill_wrapper import AntiDistillWrapper
+from doge.models.distill_wrapper import DogeWrapper
 
 set_seed(233)
 logger = get_logger(__name__)
@@ -59,7 +59,7 @@ def process_r1_thinking_data(
     }
 
 
-def train_antidistill(
+def train_doge(
         anti_kd_coef: float,
         kd_temperature: float,
         output_dir: str,
@@ -117,7 +117,7 @@ def train_antidistill(
     tokenizer.model_max_length = max_length
     teacher_model = AutoModelForCausalLM.from_pretrained(teacher_model_name, trust_remote_code=True)
     proxy_model = AutoModelForCausalLM.from_pretrained(proxy_model_name, trust_remote_code=True)
-    model = AntiDistillWrapper(
+    model = DogeWrapper(
         teacher_model=teacher_model,
         proxy_model=proxy_model,
         anti_kd_coef=anti_kd_coef,
@@ -255,4 +255,4 @@ def train_antidistill(
 
 
 if __name__ == "__main__":
-    Fire(train_antidistill)
+    Fire(train_doge)

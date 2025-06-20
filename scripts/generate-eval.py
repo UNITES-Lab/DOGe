@@ -26,7 +26,7 @@ def main(
         tokenizer_name = "meta-llama/Llama-3.2-1B-Instruct"
         tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, trust_remote_code=True)
         tokenizer.pad_token = tokenizer.eos_token
-    elif "r1-distill-qwen-7b" in model_path.lower() or "qwen7b-antidistill" in model_path.lower():
+    elif "r1-distill-qwen-7b" in model_path.lower() or "qwen7b-doge" in model_path.lower():
         tokenizer_name = "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
         tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, trust_remote_code=True)
     else:

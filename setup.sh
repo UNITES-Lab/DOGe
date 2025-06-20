@@ -1,6 +1,6 @@
- conda create -y -n antidistill python=3.10
- conda activate antidistill
+ conda create -y -n doge python=3.10
+ conda activate doge
  pip install -r requirements.txt
 
 mkdir -p data
-#huggingface-cli download --repo-type dataset ANONYMOUS/antidistill-exps --local-dir data/antidistill-exps --token $HF_TOKEN
+#huggingface-cli download --repo-type dataset ANONYMOUS/doge-exps --local-dir data/doge-exps --token $HF_TOKEN

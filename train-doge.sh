@@ -7,7 +7,7 @@ HEAD_PROJ_DIM=${2:-0}
 KD_TEMP=2
 EPOCH=2
 LR=5e-5
-OUTPUT_DIR="outputs/qwen7b-antidistill-coef$KD_COEF-temp$KD_TEMP-head_proj$HEAD_PROJ_DIM-epoch$EPOCH-lr$LR"
+OUTPUT_DIR="outputs/qwen7b-doge-coef$KD_COEF-temp$KD_TEMP-head_proj$HEAD_PROJ_DIM-epoch$EPOCH-lr$LR"
 
 accelerate launch --config_file configs/zero3-8gpu-ga16.yaml --main_process_port=23333 \
     scripts/finetune-doge.py \
