@@ -1,12 +1,16 @@
-# DOGe: Defensive Output Generation for LLM Protection Against Knowledge Distillation
+# 🐶DOGe
 
-## 1. Setup Environment
+**_Defensive Output Generation for LLM Protection Against Knowledge Distillation_**
+
+TLDR: We make LLMs much more difficult to distill while maintaining their performance/quality.
+
+### 1. Setup Environment
 
 Simply run `bash setup.sh` under the root directory of this repository to set up the environment.
 
-## 2. Replicate DOGe
+### 2. Replicate DOGe
 
-### 2.1 Generate training data
+#### 2.1 Generate training data
 
 Launch the model through vllm, for example:
 
@@ -20,7 +24,7 @@ Then check the `generate.sh` script, you might want to comment/modify some lines
 bash generate.sh
 ```
 
-### 2.2 Train DOGe on the teacher model
+#### 2.2 Train DOGe on the teacher model
 
 Check out the `train-doge.sh` script, you might want to comment/modify some lines/parameters to fit your needs.
 
@@ -28,7 +32,7 @@ Check out the `train-doge.sh` script, you might want to comment/modify some line
 bash train-doge.sh
 ```
 
-### 2.3 Distill DOGe/vanilla teacher model to a student model
+#### 2.3 Distill DOGe/vanilla teacher model to a student model
 
 Check out the `train-distill.sh` script, you might want to comment/modify some lines/parameters to fit your needs.
 
@@ -36,7 +40,7 @@ Check out the `train-distill.sh` script, you might want to comment/modify some l
 bash train-distill.sh
 ```
 
-### 2.4 Evaluate the distilled student model (or any model)
+#### 2.4 Evaluate the distilled student model (or any model)
 
 Check out the `eval-task.sh` script, you might want to comment/modify some lines/parameters to fit your needs.
 
