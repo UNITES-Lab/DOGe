@@ -4,6 +4,8 @@
 
 TLDR: We make LLMs much more difficult to distill while maintaining their performance/quality.
 
+* Checkpoints will be released soon.
+
 ### 1. Setup Environment
 
 Simply run `bash setup.sh` under the root directory of this repository to set up the environment.
