@@ -29,8 +29,6 @@ class DogeWrapper(nn.Module):
             proxy_model: PreTrainedModel,
             anti_kd_coef: float,
             kd_temperature: float,
-            lm_head_projector: bool = False,
-            lm_head_projector_dim: int = 512,
     ):
         super().__init__()
         self.teacher_model = teacher_model
@@ -51,30 +49,11 @@ class DogeWrapper(nn.Module):
 
         for param in self.teacher_model.parameters():
             param.requires_grad = False
-            
-        if lm_head_projector:
-            self.teacher_model.lm_head.bia_projector = nn.Sequential(
-                nn.Linear(self.teacher_model.lm_head.out_features, lm_head_projector_dim, bias=False),
-                nn.ReLU(),
-                nn.Linear(lm_head_projector_dim, self.teacher_model.lm_head.out_features, bias=False),
-            )
-            # init the second linear layer's weight to 0
-            self.teacher_model.lm_head.bia_projector[-1].weight.data.zero_()
-            logger.info(f"Adding lm_head_projector to TEACHER model")
-            
-            # Modify the forward function of lm_head
-            self.teacher_model.lm_head._original_forward = self.teacher_model.lm_head.forward
-            def _forward_hook(self, input: torch.Tensor) -> torch.Tensor:
-                ret = self._original_forward(input)
-                ret = ret + self.bia_projector(ret)
-                return ret
-            self.teacher_model.lm_head.forward = _forward_hook.__get__(self.teacher_model.lm_head, type(self.teacher_model.lm_head))
-            self.teacher_model.lm_head.bia_projector.requires_grad = True
-        else:
-            for name, param in self.teacher_model.named_parameters():
-                if "lm_head" in name:
-                    param.requires_grad = True
-                logger.info(f"Setting trainable on {name} (set to trainable? {param.requires_grad})")
+
+        for name, param in self.teacher_model.named_parameters():
+            if "lm_head" in name:
+                param.requires_grad = True
+            logger.info(f"Setting trainable on {name} (set to trainable? {param.requires_grad})")
 
     def forward(self, kl_mask: torch.FloatTensor=None, *args, **kwargs) -> DogeCausalLMOutputWithPast:
         assert self.training, "DogeWrapper should only be used in training mode"

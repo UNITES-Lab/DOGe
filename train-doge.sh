@@ -18,6 +18,5 @@ accelerate launch --config_file configs/zero3-8gpu-ga16.yaml --main_process_port
     --batch_size_per_device=1 \
     --gradient_accumulation_steps=16 \
     --checkpointing_steps=10 \
-    --learning_rate=$LR \
-    --lm_head_projector_dim=$HEAD_PROJ_DIM
+    --learning_rate=$LR
 #    --debugging=True

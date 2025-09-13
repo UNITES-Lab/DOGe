@@ -76,7 +76,6 @@ def train_doge(
         num_workers: int = 4,
         checkpointing_steps: int = -1,
         debugging: bool = False,
-        lm_head_projector_dim: int = 0,
 ):
     accelerator = Accelerator(
         gradient_accumulation_steps=gradient_accumulation_steps, project_dir=output_dir, log_with="wandb",
@@ -122,8 +121,6 @@ def train_doge(
         proxy_model=proxy_model,
         anti_kd_coef=anti_kd_coef,
         kd_temperature=kd_temperature,
-        lm_head_projector=lm_head_projector_dim>0,
-        lm_head_projector_dim=lm_head_projector_dim,
     )
     for n, p in model.named_parameters():
         if p.requires_grad:
